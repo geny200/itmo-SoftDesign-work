@@ -30,3 +30,11 @@
 *.exe
 *.out
 *.app
+
+# IDEA
+.idea/
+
+# VS
+.vs/
+Debug/
+
