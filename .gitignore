@@ -1,32 +1,45 @@
-# Prerequisites
-*.d
+# bloop and metals
+.bloop
+.bsp
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+# metals
+project/metals.sbt
+.metals
 
-# Precompiled Headers
-*.gch
-*.pch
+# vs code
+.vscode
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+# scala 3
+.tasty
 
-# Fortran module files
-*.mod
-*.smod
+# sbt
+project/project/
+project/target/
+target/
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
+# eclipse
+build/
+.classpath
+.project
+.settings
+.worksheet
+bin/
+.cache
 
-# Executables
-*.exe
-*.out
-*.app
+# intellij idea
+*.log
+*.iml
+*.ipr
+*.iws
+.idea
+
+# mac
+.DS_Store
+
+# other?
+.history
+.scala_dependencies
+.cache-main
+
+#general
+*.class
