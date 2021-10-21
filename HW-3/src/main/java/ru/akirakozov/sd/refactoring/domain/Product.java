@@ -24,4 +24,8 @@ public class Product {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String toHtml() {
+        return name + "\t" + price + "</br>";
+    }
 }

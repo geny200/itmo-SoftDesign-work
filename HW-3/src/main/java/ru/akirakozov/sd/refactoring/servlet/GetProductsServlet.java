@@ -23,7 +23,7 @@ public class GetProductsServlet extends AbstractBaseServlet {
             response.getWriter().println("<html><body>");
             List<Product> products = dataBase.selectAllFromProduct();
             for (Product product : products) {
-                response.getWriter().println(product.getName() + "\t" + product.getPrice() + "</br>");
+                response.getWriter().println(product.toHtml());
             }
             response.getWriter().println("</body></html>");
         } catch (Exception e) {

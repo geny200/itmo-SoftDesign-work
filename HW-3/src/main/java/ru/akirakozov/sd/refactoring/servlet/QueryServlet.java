@@ -26,7 +26,7 @@ public class QueryServlet extends AbstractBaseServlet {
                 response.getWriter().println("<html><body>");
                 response.getWriter().println("<h1>Product with max price: </h1>");
                 if (product != null) {
-                    response.getWriter().println(product.getName() + "\t" + product.getPrice() + "</br>");
+                    response.getWriter().println(product.toHtml());
                 }
                 response.getWriter().println("</body></html>");
 
@@ -39,7 +39,7 @@ public class QueryServlet extends AbstractBaseServlet {
                 response.getWriter().println("<html><body>");
                 response.getWriter().println("<h1>Product with min price: </h1>");
                 if (product != null) {
-                    response.getWriter().println(product.getName() + "\t" + product.getPrice() + "</br>");
+                    response.getWriter().println(product.toHtml());
                 }
                 response.getWriter().println("</body></html>");
 
