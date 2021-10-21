@@ -2,7 +2,6 @@ package ru.akirakozov.sd.refactoring.servlet;
 
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.mockito.Mockito;
 import ru.akirakozov.sd.refactoring.database.DataBase;
 
@@ -13,22 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Map;
 
 import static org.mockito.Mockito.*;
 
 public class BaseServletTest extends Assert {
     private final HttpServlet servlet;
-    private final String endPoint;
     private final DataBase dataBase;
 
-    public BaseServletTest(ServletProducer<HttpServlet> servlet, String endPoint, DataBase dataBase) {
+    public BaseServletTest(ServletProducer<HttpServlet> servlet, DataBase dataBase) {
         this.servlet = servlet.apply(dataBase);
-        this.endPoint = endPoint;
         this.dataBase = dataBase;
     }
 

@@ -12,7 +12,7 @@ import java.util.Map;
 public class QueryServletTest extends BaseAddServletTest {
 
     public QueryServletTest() {
-        super(QueryServlet::new, "get-products", new InMemoryDataBase());
+        super(QueryServlet::new, new InMemoryDataBase());
     }
 
     void query(String query, List<String> result) throws ServletException, IOException {

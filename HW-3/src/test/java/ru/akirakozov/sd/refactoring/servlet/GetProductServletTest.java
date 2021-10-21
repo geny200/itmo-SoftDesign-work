@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class GetProductServletTest extends BaseAddServletTest {
 
     public GetProductServletTest() {
-        super(GetProductsServlet::new, "get-products", new InMemoryDataBase());
+        super(GetProductsServlet::new, new InMemoryDataBase());
     }
 
     void getProducts(List<String> products) throws ServletException, IOException {

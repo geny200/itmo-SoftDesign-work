@@ -1,7 +1,6 @@
 package ru.akirakozov.sd.refactoring.servlet;
 
 import org.junit.Test;
-import ru.akirakozov.sd.refactoring.database.DataBase;
 import ru.akirakozov.sd.refactoring.database.InMemoryDataBase;
 
 import javax.servlet.ServletException;
@@ -10,7 +9,7 @@ import java.io.IOException;
 public class AddProductServletTest extends BaseAddServletTest {
 
     public AddProductServletTest() {
-        super(AddProductServlet::new, "add-product", new InMemoryDataBase());
+        super(AddProductServlet::new, new InMemoryDataBase());
     }
 
     @Test

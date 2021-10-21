@@ -10,8 +10,8 @@ import java.util.Map;
 public class BaseAddServletTest extends BaseServletTest {
     private final AddServletCall addProductServlet;
 
-    public BaseAddServletTest(ServletProducer<HttpServlet> servlet, String endPoint, DataBase dataBase) {
-        super(servlet, endPoint, dataBase);
+    public BaseAddServletTest(ServletProducer<HttpServlet> servlet, DataBase dataBase) {
+        super(servlet, dataBase);
         this.addProductServlet = new AddServletCall(dataBase);
     }
 
@@ -24,7 +24,7 @@ public class BaseAddServletTest extends BaseServletTest {
 
     static class AddServletCall extends BaseServletTest {
         public AddServletCall(DataBase dataBase) {
-            super(AddProductServlet::new, "add-product", dataBase);
+            super(AddProductServlet::new, dataBase);
         }
     }
 }
