@@ -21,45 +21,35 @@ public class QueryServlet extends AbstractBaseServlet {
         String command = request.getParameter("command");
         HtmlFormatter formatter = new HtmlFormatter();
 
-        if ("max".equals(command)) {
-            try {
-                formatter.body("<h1>Product with max price: </h1>");
-                dataBase.maxInProducts()
-                        .ifPresent(product -> formatter.body(product.toHtml()));
+        switch (command) {
+            case "max":
+                formatter.toBody("<h1>Product with max price: </h1>");
+                dataBase.maxInProducts().ifPresent(formatter::toBody);
+                break;
 
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        } else if ("min".equals(command)) {
-            try {
-                formatter.body("<h1>Product with min price: </h1>");
-                dataBase.minInProducts()
-                        .ifPresent(product -> formatter.body(product.toHtml()));
+            case "min":
+                formatter.toBody("<h1>Product with min price: </h1>");
+                dataBase.minInProducts().ifPresent(formatter::toBody);
+                break;
 
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        } else if ("sum".equals(command)) {
-            try {
+            case "sum":
                 long sum = dataBase.sumProducts();
-                formatter.body("Summary price: ");
-                formatter.body(Long.toString(sum));
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        } else if ("count".equals(command)) {
-            try {
+                formatter.toBody("Summary price: ");
+                formatter.toBody(sum);
+                break;
+
+            case "count":
                 long countProducts = dataBase.countProducts();
-                formatter.body("Number of products: ");
-                formatter.body(Long.toString(countProducts));
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        } else {
-            response.getWriter().println("Unknown command: " + command);
-            setResponse(response);
-            return;
+                formatter.toBody("Number of products: ");
+                formatter.toBody(countProducts);
+                break;
+
+            default:
+                response.getWriter().println("Unknown command: " + command);
+                setResponse(response);
+                return;
         }
+
         formatter.write(response.getWriter());
         setResponse(response);
     }

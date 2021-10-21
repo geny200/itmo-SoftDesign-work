@@ -1,14 +1,20 @@
 package ru.akirakozov.sd.refactoring.formatter;
 
+import ru.akirakozov.sd.refactoring.domain.Product;
+
 import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
 
 public class HtmlFormatter {
-    private final List<String> lines = new LinkedList<>();
+    private final List<Object> lines = new LinkedList<>();
 
-    public void body(String line) {
+    public void toBody(Object line) {
         lines.add(line);
+    }
+
+    public void toBody(Product product) {
+        lines.add(product.toHtml());
     }
 
     public void write(PrintWriter writer) {

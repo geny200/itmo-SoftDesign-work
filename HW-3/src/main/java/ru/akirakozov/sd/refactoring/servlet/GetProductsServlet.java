@@ -19,9 +19,7 @@ public class GetProductsServlet extends AbstractBaseServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HtmlFormatter formatter = new HtmlFormatter();
-
-        dataBase.selectAllFromProduct()
-                .forEach(product -> formatter.body(product.toHtml()));
+        dataBase.selectAllFromProduct().forEach(formatter::toBody);
 
         formatter.write(response.getWriter());
         setResponse(response);

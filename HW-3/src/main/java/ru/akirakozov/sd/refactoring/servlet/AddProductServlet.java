@@ -19,13 +19,11 @@ public class AddProductServlet extends AbstractBaseServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        PrintWriter writer = response.getWriter();
-
         String name = request.getParameter("name");
         long price = Long.parseLong(request.getParameter("price"));
         dataBase.insertIntoProduct(new Product(name, price));
 
-        writer.println("OK");
+        response.getWriter().println("OK");
         setResponse(response);
     }
 }
