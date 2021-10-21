@@ -1,12 +1,11 @@
 package ru.akirakozov.sd.refactoring.servlet;
 
 import ru.akirakozov.sd.refactoring.database.DataBase;
-import ru.akirakozov.sd.refactoring.domain.Product;
+import ru.akirakozov.sd.refactoring.formatter.HtmlFormatter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * @author akirakozov
@@ -19,17 +18,12 @@ public class GetProductsServlet extends AbstractBaseServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        try {
-            response.getWriter().println("<html><body>");
-            List<Product> products = dataBase.selectAllFromProduct();
-            for (Product product : products) {
-                response.getWriter().println(product.toHtml());
-            }
-            response.getWriter().println("</body></html>");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        HtmlFormatter formatter = new HtmlFormatter();
 
+        dataBase.selectAllFromProduct()
+                .forEach(product -> formatter.body(product.toHtml()));
+
+        formatter.write(response.getWriter());
         setResponse(response);
     }
 }

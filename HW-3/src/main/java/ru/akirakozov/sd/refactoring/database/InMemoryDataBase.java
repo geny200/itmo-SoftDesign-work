@@ -1,13 +1,8 @@
 package ru.akirakozov.sd.refactoring.database;
 
-import com.google.common.collect.HashMultiset;
-import com.google.common.collect.Multiset;
 import ru.akirakozov.sd.refactoring.domain.Product;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class InMemoryDataBase implements DataBase {
     private final List<Product> dataBase = new LinkedList<>();
@@ -36,19 +31,17 @@ public class InMemoryDataBase implements DataBase {
     }
 
     @Override
-    public Product maxInProducts() {
+    public Optional<Product> maxInProducts() {
         return dataBase
                 .stream()
-                .max(Comparator.comparingLong(Product::getPrice))
-                .orElse(null);
+                .max(Comparator.comparingLong(Product::getPrice));
     }
 
     @Override
-    public Product minInProducts() {
+    public Optional<Product> minInProducts() {
         return dataBase
                 .stream()
-                .min(Comparator.comparingLong(Product::getPrice))
-                .orElse(null);
+                .min(Comparator.comparingLong(Product::getPrice));
     }
 
     @Override

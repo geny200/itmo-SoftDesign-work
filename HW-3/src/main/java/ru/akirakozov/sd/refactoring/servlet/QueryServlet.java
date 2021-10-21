@@ -1,7 +1,7 @@
 package ru.akirakozov.sd.refactoring.servlet;
 
 import ru.akirakozov.sd.refactoring.database.DataBase;
-import ru.akirakozov.sd.refactoring.domain.Product;
+import ru.akirakozov.sd.refactoring.formatter.HtmlFormatter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,29 +19,22 @@ public class QueryServlet extends AbstractBaseServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String command = request.getParameter("command");
+        HtmlFormatter formatter = new HtmlFormatter();
 
         if ("max".equals(command)) {
             try {
-                Product product = dataBase.maxInProducts();
-                response.getWriter().println("<html><body>");
-                response.getWriter().println("<h1>Product with max price: </h1>");
-                if (product != null) {
-                    response.getWriter().println(product.toHtml());
-                }
-                response.getWriter().println("</body></html>");
+                formatter.body("<h1>Product with max price: </h1>");
+                dataBase.maxInProducts()
+                        .ifPresent(product -> formatter.body(product.toHtml()));
 
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         } else if ("min".equals(command)) {
             try {
-                Product product = dataBase.minInProducts();
-                response.getWriter().println("<html><body>");
-                response.getWriter().println("<h1>Product with min price: </h1>");
-                if (product != null) {
-                    response.getWriter().println(product.toHtml());
-                }
-                response.getWriter().println("</body></html>");
+                formatter.body("<h1>Product with min price: </h1>");
+                dataBase.minInProducts()
+                        .ifPresent(product -> formatter.body(product.toHtml()));
 
             } catch (Exception e) {
                 throw new RuntimeException(e);
@@ -49,29 +42,25 @@ public class QueryServlet extends AbstractBaseServlet {
         } else if ("sum".equals(command)) {
             try {
                 long sum = dataBase.sumProducts();
-                response.getWriter().println("<html><body>");
-                response.getWriter().println("Summary price: ");
-                response.getWriter().println(sum);
-                response.getWriter().println("</body></html>");
-
+                formatter.body("Summary price: ");
+                formatter.body(Long.toString(sum));
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         } else if ("count".equals(command)) {
             try {
                 long countProducts = dataBase.countProducts();
-                response.getWriter().println("<html><body>");
-                response.getWriter().println("Number of products: ");
-                response.getWriter().println(countProducts);
-                response.getWriter().println("</body></html>");
-
+                formatter.body("Number of products: ");
+                formatter.body(Long.toString(countProducts));
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         } else {
             response.getWriter().println("Unknown command: " + command);
+            setResponse(response);
+            return;
         }
-
+        formatter.write(response.getWriter());
         setResponse(response);
     }
 
