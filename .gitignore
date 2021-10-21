@@ -32,6 +32,7 @@
 *.app
 
 # IDEA
+<<<<<<< HEAD
 .idea/
 
 # VS
@@ -83,3 +84,8 @@ bin/
 
 #general
 *.class
+*.iml
+.idea
+out
+target
+lib
