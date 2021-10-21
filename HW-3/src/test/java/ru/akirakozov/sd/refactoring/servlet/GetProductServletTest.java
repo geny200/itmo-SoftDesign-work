@@ -1,6 +1,7 @@
 package ru.akirakozov.sd.refactoring.servlet;
 
 import org.junit.Test;
+import ru.akirakozov.sd.refactoring.database.InMemoryDataBase;
 
 import javax.servlet.ServletException;
 import java.io.IOException;
@@ -12,7 +13,7 @@ import java.util.stream.Collectors;
 public class GetProductServletTest extends BaseAddServletTest {
 
     public GetProductServletTest() {
-        super(new GetProductsServlet(), "get-products");
+        super(GetProductsServlet::new, "get-products", new InMemoryDataBase());
     }
 
     void getProducts(List<String> products) throws ServletException, IOException {

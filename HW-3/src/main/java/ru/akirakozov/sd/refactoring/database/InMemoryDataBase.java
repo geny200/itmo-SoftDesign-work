@@ -6,10 +6,11 @@ import ru.akirakozov.sd.refactoring.domain.Product;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 
 public class InMemoryDataBase implements DataBase {
-    private final Multiset<Product> dataBase = HashMultiset.create();
+    private final List<Product> dataBase = new LinkedList<>();
 
     @Override
     public void insertIntoProduct(Product product) {
@@ -48,5 +49,10 @@ public class InMemoryDataBase implements DataBase {
                 .stream()
                 .min(Comparator.comparingLong(Product::getPrice))
                 .orElse(null);
+    }
+
+    @Override
+    public void dropProducts() {
+        dataBase.removeAll(selectAllFromProduct());
     }
 }

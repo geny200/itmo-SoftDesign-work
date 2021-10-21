@@ -115,6 +115,11 @@ public class SqlLiteDataBase implements DataBase {
         return minProsucts.get(0);
     }
 
+    @Override
+    public void dropProducts() {
+        update("DROP TABLE PRODUCT");
+    }
+
     @FunctionalInterface
     public interface SQLFunction<T> {
         void apply(T t) throws SQLException;

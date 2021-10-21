@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.mockito.Mockito;
+import ru.akirakozov.sd.refactoring.database.DataBase;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -23,34 +24,17 @@ import static org.mockito.Mockito.*;
 public class BaseServletTest extends Assert {
     private final HttpServlet servlet;
     private final String endPoint;
+    private final DataBase dataBase;
 
-    public BaseServletTest(HttpServlet servlet, String endPoint) {
-        this.servlet = servlet;
+    public BaseServletTest(ServletProducer<HttpServlet> servlet, String endPoint, DataBase dataBase) {
+        this.servlet = servlet.apply(dataBase);
         this.endPoint = endPoint;
-    }
-
-    void callSQL(String sql) {
-        try (Connection c = DriverManager.getConnection("jdbc:sqlite:test.db")) {
-            Statement stmt = c.createStatement();
-
-            stmt.executeUpdate(sql);
-            stmt.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-
-    @Before
-    public void createTable() {
-        callSQL("CREATE TABLE IF NOT EXISTS PRODUCT" +
-                "(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-                " NAME           TEXT    NOT NULL, " +
-                " PRICE          INT     NOT NULL)");
+        this.dataBase = dataBase;
     }
 
     @After
     public void dropTable() {
-        callSQL("DROP TABLE PRODUCT");
+        dataBase.dropProducts();
     }
 
     public void servletAssertCall(Map<String, String> req, String res)
@@ -83,4 +67,8 @@ public class BaseServletTest extends Assert {
         assertEquals(writer.toString(), res);
     }
 
+    @FunctionalInterface
+    public interface ServletProducer<R> {
+        R apply(DataBase t);
+    }
 }

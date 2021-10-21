@@ -1,6 +1,7 @@
 package ru.akirakozov.sd.refactoring.servlet;
 
 import org.junit.Test;
+import ru.akirakozov.sd.refactoring.database.InMemoryDataBase;
 
 import javax.servlet.ServletException;
 import java.io.IOException;
@@ -11,7 +12,7 @@ import java.util.Map;
 public class QueryServletTest extends BaseAddServletTest {
 
     public QueryServletTest() {
-        super(new QueryServlet(), "get-products");
+        super(QueryServlet::new, "get-products", new InMemoryDataBase());
     }
 
     void query(String query, List<String> result) throws ServletException, IOException {

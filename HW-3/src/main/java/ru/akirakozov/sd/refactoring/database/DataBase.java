@@ -16,4 +16,6 @@ public interface DataBase {
     public Product maxInProducts();
 
     public Product minInProducts();
+
+    public void dropProducts();
 }

@@ -1,15 +1,18 @@
 package ru.akirakozov.sd.refactoring.servlet;
 
+import ru.akirakozov.sd.refactoring.database.DataBase;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import java.io.IOException;
 import java.util.Map;
 
 public class BaseAddServletTest extends BaseServletTest {
-    private final AddServletCall addProductServlet = new AddServletCall();
+    private final AddServletCall addProductServlet;
 
-    public BaseAddServletTest(HttpServlet servlet, String endPoint) {
-        super(servlet, endPoint);
+    public BaseAddServletTest(ServletProducer<HttpServlet> servlet, String endPoint, DataBase dataBase) {
+        super(servlet, endPoint, dataBase);
+        this.addProductServlet = new AddServletCall(dataBase);
     }
 
     public void addProduct(String name, Integer price) throws ServletException, IOException {
@@ -20,8 +23,8 @@ public class BaseAddServletTest extends BaseServletTest {
     }
 
     static class AddServletCall extends BaseServletTest {
-        public AddServletCall() {
-            super(new AddProductServlet(), "add-product");
+        public AddServletCall(DataBase dataBase) {
+            super(AddProductServlet::new, "add-product", dataBase);
         }
     }
 }
