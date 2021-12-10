@@ -6,4 +6,4 @@
   * [Branch with commits](https://github.com/geny200/itmo-SoftDesign-work/tree/HW-3)
 * Lab 4 - MVC in TODOApp (not implemented)
 * [**Lab 5 - bridge in graphviz**](./HW-5)
-* Lab 6 - visitor & state in calculator (not implemented)
+* [**Lab 6 - visitor & state in calculator**](./HW-6)
