@@ -7,3 +7,5 @@
 * Lab 4 - MVC in TODOApp (not implemented)
 * [**Lab 5 - bridge in graphviz**](./HW-5)
 * [**Lab 6 - visitor & state in calculator**](./HW-6)
+* Lab 7 - profiler with aop (not implemented)
+* [**Lab 8 - EventsStatistic + Clock**](./HW-8)
